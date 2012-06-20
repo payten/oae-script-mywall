@@ -38,3 +38,9 @@ Currently, the script does one user at a time.  To run against a userid "payten"
 => ruby create_wall.rb payten
 
 --
+
+Please note the "My Wall" will only work in conjunction with OAE patches as deployed in NYU's 3akai-ux master branch (http://github.com/nyuatlas/3akai-ux).
+
+See all commits with a prefix "ATLASINT-171" for explicit changes.
+
+
