@@ -13,7 +13,7 @@ require 'markaby'
 @pass = "admin"
 
 puts "-- This is a script to create a My Wall dashboard for a user"
-puts "-- for use with Sakai OAE 1.3
+puts "-- for use with Sakai OAE 1.3"
 
 
 if ARGV.size === 1
