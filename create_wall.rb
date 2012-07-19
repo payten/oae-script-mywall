@@ -13,7 +13,7 @@ require 'markaby'
 @pass = "admin"
 
 puts "-- This is a script to create a My Wall dashboard for a user"
-puts "-- for use with Sakai OAE 1.2"
+puts "-- for use with Sakai OAE 1.3
 
 
 if ARGV.size === 1
@@ -170,16 +170,59 @@ def do_stuff
 		
 		# don't overwrite existing dashboard
 		unless user_had_wall_already
+		  text_widget_id = generateWidgetId()
+		  comment_widget_id = generateWidgetId()
+		  googlemaps_widget_id = generateWidgetId()
+		
     	pubspace["#{wall_id}"]["#{dashboard_id}"] = {
     		"dashboard"=> {
-    			"layout"=> "threecolumn",
+    			"layout"=> "dev",
     			"columns"=> {
-    				"column1"=> [],
-    				"column2"=> [],
-    				"column3"=> []
+    				"column1"=> {
+                "__array__0__" => {
+     				      "name" => "text",
+       				    "uid"  => "#{text_widget_id}",
+       				    "visible" => "block"
+       				  },
+                "__array__1__" => {
+     				      "name" => "comments",
+       				    "uid"  => "#{comment_widget_id}",
+       				    "visible" => "block"
+       				  },
+     				},
+    				"column2"=> {
+              "__array__0__" => {
+                "name" => "googlemaps",
+                "uid"  => "#{googlemaps_widget_id}",
+                "visible" => "block"
+              }
+    				}
     			}
     		}
     	}
+    	
+    	pubspace["#{text_widget_id}"] = {
+    	  "text" => {
+    	    "data" => {
+    	      "sakai:indexed-fields" => "text",
+            "sling:resourceType:" => "sakai/widget-data",
+            "text" => "Tell people who you are by writing a few sentences to describe your academic interests, goals, and background.",
+            "title" => "About Me"
+  	      }
+      	}
+    	}
+    	
+      pubspace["#{googlemaps_widget_id}"] = {
+    	  "googlemaps" => {
+          "lat" => 40.7308803,
+          "lng" => -73.9973273,
+          "maphtml" => "Washington Square Park, 1 Washington Square N, New York, NY 10003, USA",
+          "mapinput" => "Washington Square Park, New York, NY, United States",
+          "mapzoom" => 15,
+          "sakai:indexed-fields" => "mapinput,maphtml",
+          "sling:resourceType" => "sakai/widget-data"
+      	}
+    	}    	
 	  end
 		
 		pubspace["structure0"] = JSON.generate(pubstructure)
